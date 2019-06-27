@@ -108,11 +108,10 @@ namespace AspNetCorePipeSample
             if (string.IsNullOrEmpty(model?.Path))
                 return position; // nothing more to append
 
-            response[position] = (byte)'/';
-            position++;
+            response[position++] = (byte)'/';
 
-            var bytes = Encoding.UTF8.GetBytes(model.Path.AsSpan(), response.Slice(position));
-            position += bytes;
+            var bytesWritten = Encoding.UTF8.GetBytes(model.Path, response.Slice(position));
+            position += bytesWritten;
 
             return position;
         }
